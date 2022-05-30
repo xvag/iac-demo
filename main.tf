@@ -48,7 +48,7 @@ resource "google_compute_instance" "master-vm" {
   name         = "master-vm-${count.index}"
   machine_type = "e2-standard-2"
   allow_stopping_for_update = true
-  can-ip-forward = true
+  can_ip_forward = true
   tags = ["k8s", "master"]
   boot_disk {
     initialize_params {
@@ -69,16 +69,16 @@ resource "google_compute_instance" "master-vm" {
     ssh-keys = "${var.ssh_user}:${var.ssh_key}"
   }
   depends_on = [
-    google_compute_subnetwork.k8s-hw-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
 
-resource "google_compute_instance" "workers-vm" {
+resource "google_compute_instance" "worker-vm" {
   count = 3
   name         = "worker-vm-${count.index}"
   machine_type = "e2-standard-2"
   allow_stopping_for_update = true
-  can-ip-forward = true
+  can_ip_forward = true
   tags = ["k8s", "worker"]
   boot_disk {
     initialize_params {
@@ -100,6 +100,6 @@ resource "google_compute_instance" "workers-vm" {
     ssh-keys = "${var.ssh_user}:${var.ssh_key}"
   }
   depends_on = [
-    google_compute_subnetwork.k8s-hw-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
