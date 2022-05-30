@@ -73,7 +73,7 @@ resource "google_compute_instance" "master-vm" {
   ]
 }
 
-resource "google_compute_instance" "worker-vm" {
+resource "google_compute_instance" "workers-vm" {
   count = 3
   name         = "worker-vm-${count.index}"
   machine_type = "e2-standard-2"
