@@ -43,10 +43,10 @@ resource "google_compute_address" "k8s-ip" {
   region = "europe-west4"
 }
 
-resource "google_compute_instance" "master-vm" {
+resource "google_compute_instance" "master" {
   count = 2
 
-  name                      = "master-vm-${count.index}"
+  name                      = "master-${count.index}"
   machine_type              = "e2-standard-2"
   zone                      = "europe-west4-a"
   allow_stopping_for_update = true
@@ -75,10 +75,10 @@ resource "google_compute_instance" "master-vm" {
   ]
 }
 
-resource "google_compute_instance" "worker-vm" {
+resource "google_compute_instance" "worker" {
   count = 2
 
-  name                      = "worker-vm-${count.index}"
+  name                      = "worker-${count.index}"
   machine_type              = "e2-standard-2"
   zone                      = "europe-west4-a"
   allow_stopping_for_update = true
