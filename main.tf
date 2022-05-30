@@ -48,7 +48,7 @@ resource "google_compute_instance" "master-vm" {
 
   name                      = "master-vm-${count.index}"
   machine_type              = "e2-standard-2"
-  region                    = "europe-west4"
+  zone                      = "europe-west4-a"
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["k8s", "master"]
@@ -77,10 +77,10 @@ resource "google_compute_instance" "master-vm" {
 
 resource "google_compute_instance" "worker-vm" {
   count = 3
-  
+
   name                      = "worker-vm-${count.index}"
   machine_type              = "e2-standard-2"
-  region                    = "europe-west4"
+  zone                      = "europe-west4-a"
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["k8s", "worker"]
