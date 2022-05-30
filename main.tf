@@ -45,11 +45,13 @@ resource "google_compute_address" "k8s-ip" {
 
 resource "google_compute_instance" "master-vm" {
   count = 3
-  name         = "master-vm-${count.index}"
-  machine_type = "e2-standard-2"
+
+  name                      = "master-vm-${count.index}"
+  machine_type              = "e2-standard-2"
+  region                    = "europe-west4"
   allow_stopping_for_update = true
-  can_ip_forward = true
-  tags = ["k8s", "master"]
+  can_ip_forward            = true
+  tags                      = ["k8s", "master"]
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
@@ -75,11 +77,13 @@ resource "google_compute_instance" "master-vm" {
 
 resource "google_compute_instance" "worker-vm" {
   count = 3
-  name         = "worker-vm-${count.index}"
-  machine_type = "e2-standard-2"
+  
+  name                      = "worker-vm-${count.index}"
+  machine_type              = "e2-standard-2"
+  region                    = "europe-west4"
   allow_stopping_for_update = true
-  can_ip_forward = true
-  tags = ["k8s", "worker"]
+  can_ip_forward            = true
+  tags                      = ["k8s", "worker"]
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2004-lts"
