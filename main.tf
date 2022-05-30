@@ -44,7 +44,7 @@ resource "google_compute_address" "k8s-ip" {
 }
 
 resource "google_compute_instance" "master-vm" {
-  count = 3
+  count = 2
 
   name                      = "master-vm-${count.index}"
   machine_type              = "e2-standard-2"
@@ -76,7 +76,7 @@ resource "google_compute_instance" "master-vm" {
 }
 
 resource "google_compute_instance" "worker-vm" {
-  count = 3
+  count = 2
 
   name                      = "worker-vm-${count.index}"
   machine_type              = "e2-standard-2"
