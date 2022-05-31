@@ -1,3 +1,3 @@
 # k8s-thw
 
-Deploy k8s cluster "the hard way"
+Deploy k8s cluster "the hard way".
