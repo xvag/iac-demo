@@ -51,7 +51,7 @@ resource "google_compute_firewall" "k8s-fw-ex" {
 }
 
 resource "google_compute_instance" "controller" {
-  count = controller-no
+  count = var.controller-no
 
   name                      = var.controller-name[count.index]
   machine_type              = var.machine
@@ -83,7 +83,7 @@ resource "google_compute_instance" "controller" {
 }
 
 resource "google_compute_instance" "worker" {
-  count = worker-no
+  count = var.worker-no
 
   name                      = var.worker-name[count.index]
   machine_type              = var.machine

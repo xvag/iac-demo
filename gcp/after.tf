@@ -19,8 +19,8 @@ resource "google_compute_http_health_check" "k8s-health-check" {
 resource "google_compute_target_pool" "k8s-target-pool" {
   name = "k8s-target-pool"
   instances = [
-    "${var.zone}/${var.controller[0]}",
-    "${var.zone}/${var.controller[1]}",
+    "${var.zone}/${var.controller-name[0]}",
+    "${var.zone}/${var.controller-name[1]}",
   ]
   health_checks = [
     google_compute_http_health_check.k8s-health-check.name,
@@ -36,7 +36,7 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
 }
 
 resource "google_compute_route" "k8s-route" {
-  count       = worker-no
+  count       = var.worker-no
 
   name        = "k8s-route-10-200-${count.index}-0-24"
   dest_range  = var.pod-cidr[count.index]
