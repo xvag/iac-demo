@@ -1,6 +1,7 @@
-variable "project" {
+variable "gcp_project" {
   type      = string
   sensitive = true
+  description = "Google Cloud project ID"
 }
 
 variable "gcp_creds" {

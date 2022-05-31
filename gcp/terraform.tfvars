@@ -2,7 +2,6 @@
 ### Common variables
 ###
 
-project = "active-defender-350709"
 region  = "europe-west4"
 zone    = "europe-west4-a"
 subnet  = "10.240.0.0/24"
