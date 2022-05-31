@@ -16,7 +16,7 @@ size    = "20"
 
 controller-no   = 2                                # Number of Controllers
 controller-name = ["controller-0","controller-1"]  # Names
-controller-ip   = ["10.240.0.10","10.240.0.11"]    # Private IP
+controller-ip   = ["10.240.0.10","10.240.0.11"]    # Internal IP
 
 ###
 ### Worker variables
@@ -24,7 +24,7 @@ controller-ip   = ["10.240.0.10","10.240.0.11"]    # Private IP
 
 worker-no      = 2                                 # Number of Workers
 worker-name    = ["worker-0","worker-1"]           # Names
-worker-ip      = ["10.240.0.20","10.240.0.21"]     # Private IP
+worker-ip      = ["10.240.0.20","10.240.0.21"]     # Internal IP
 pod-cidr       = ["10.200.0.0/24","10.200.1.0/24"] # Pod Subnet
 
 pod-cidr-range = "10.200.0.0/16"                   # Pod Subnet range

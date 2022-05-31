@@ -85,9 +85,6 @@ resource "google_compute_target_pool" "k8s-target-pool" {
   health_checks = [
     google_compute_http_health_check.k8s-health-check.name,
   ]
-  depends_on = [
-    google_compute_instance.controller
-  ]
 }
 
 resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
