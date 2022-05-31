@@ -1,0 +1,8 @@
+---
+- name: Generate Certifications and Configs
+  hosts: localhost
+  
+  vars:
+
+  roles:
+    - gen-cert-conf
