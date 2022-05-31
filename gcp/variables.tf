@@ -1,6 +1,6 @@
 variable "project" {
-  type = string
-  default = "active-defender-350709"
+  type      = string
+  sensitive = true
 }
 
 variable "gcp_creds" {
@@ -17,4 +17,60 @@ variable "ssh_user" {
 variable "ssh_key" {
   type      = string
   sensitive = true
+}
+
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
+variable "subnet" {
+  type = string
+}
+
+variable "machine" {
+  type = string
+}
+
+variable "image" {
+  type = string
+}
+
+variable "size" {
+  type = string
+}
+
+variable "controller-no" {
+  type = number
+}
+
+variable "controller-name" {
+  type = list(string)
+}
+
+variable "controller-ip" {
+  type = list(string)
+}
+
+variable "worker-no" {
+  type = number
+}
+
+variable "worker-name" {
+  type = list(string)
+}
+
+variable "worker-ip" {
+  type = list(string)
+}
+
+variable "pod-cidr" {
+  type = list(string)
+}
+
+variable "pod-cidr-range" {
+  type = string
 }

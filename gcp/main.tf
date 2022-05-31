@@ -1,15 +1,7 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "3.5.0"
-    }
-  }
-}
 
-provider "google" {
-  credentials = var.gcp_creds
-  project     = var.project
+resource "google_compute_address" "k8s-ip" {
+  name   = "k8s-ip"
+  region = var.region
 }
 
 resource "google_compute_network" "k8s-vpc" {
@@ -19,48 +11,63 @@ resource "google_compute_network" "k8s-vpc" {
 
 resource "google_compute_subnetwork" "k8s-subnet" {
   name          = "k8s-subnet"
-  region        = "europe-west4"
-  ip_cidr_range = "10.240.0.0/24"
+  region        = var.region
+  ip_cidr_range = var.subnet
   network       = google_compute_network.k8s-vpc.id
 }
 
-resource "google_compute_firewall" "k8s-fw" {
-  name     = "k8s-fw"
+resource "google_compute_firewall" "k8s-fw-in" {
+  name     = "k8s-fw-in"
   network  = "k8s-vpc"
   allow {
-    protocol = "all"
+    protocol = "tcp"
   }
-  source_ranges = [
-    "0.0.0.0/0"
-  ]
+  allow {
+    protocol = "udp"
+  }
+  allow {
+    protocol = "icmp"
+  }
+  source_ranges = ["${var.subnet}","${var.pod-cidr-range}"]
   depends_on = [
     google_compute_subnetwork.k8s-subnet
   ]
 }
 
-resource "google_compute_address" "k8s-ip" {
-  name   = "k8s-ip"
-  region = "europe-west4"
+resource "google_compute_firewall" "k8s-fw-ex" {
+  name     = "k8s-fw-ex"
+  network  = "k8s-vpc"
+  allow {
+    protocol = "tcp"
+    ports    = ["22","6443"]
+  }
+  allow {
+    protocol = "icmp"
+  }
+  source_ranges = ["0.0.0.0/0"]
+  depends_on = [
+    google_compute_subnetwork.k8s-subnet
+  ]
 }
 
-resource "google_compute_instance" "master" {
-  count = 2
+resource "google_compute_instance" "controller" {
+  count = controller-no
 
-  name                      = "master-${count.index}"
-  machine_type              = "e2-standard-2"
-  zone                      = "europe-west4-a"
+  name                      = var.controller-name[count.index]
+  machine_type              = var.machine
+  zone                      = var.zone
   allow_stopping_for_update = true
   can_ip_forward            = true
-  tags                      = ["k8s", "master"]
+  tags                      = ["k8s", "controller"]
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-lts"
-      size  = "20"
+      image = var.image
+      size  = var.size
     }
   }
   network_interface {
     subnetwork = google_compute_subnetwork.k8s-subnet.self_link
-    network_ip = "10.240.0.1${count.index}"
+    network_ip = var.controller-ip[count.index]
     access_config {
     }
   }
@@ -76,23 +83,23 @@ resource "google_compute_instance" "master" {
 }
 
 resource "google_compute_instance" "worker" {
-  count = 2
+  count = worker-no
 
-  name                      = "worker-${count.index}"
-  machine_type              = "e2-standard-2"
-  zone                      = "europe-west4-a"
+  name                      = var.worker-name[count.index]
+  machine_type              = var.machine
+  zone                      = var.zone
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["k8s", "worker"]
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-lts"
-      size  = "20"
+      image = var.image
+      size  = var.size
     }
   }
   network_interface {
     subnetwork = google_compute_subnetwork.k8s-subnet.self_link
-    network_ip = "10.240.0.2${count.index}"
+    network_ip = var.worker-ip[count.index]
     access_config {
     }
   }
@@ -100,8 +107,8 @@ resource "google_compute_instance" "worker" {
     scopes = ["compute-rw","storage-ro","service-management","service-control","logging-write","monitoring"]
   }
   metadata = {
-    pod-cidr = "10.200.${count.index}.0/24"
     ssh-keys = "${var.ssh_user}:${var.ssh_key}"
+    pod-cidr = var.pod-cidr[count.index]
   }
   depends_on = [
     google_compute_subnetwork.k8s-subnet
