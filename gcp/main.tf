@@ -97,7 +97,7 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
   region     = var.region
   target     = google_compute_target_pool.k8s-target-pool.id
   depends_on = [
-    google_compute_address.k8s-ip
+    google_compute_address.k8s-ip,
     google_compute_target_pool.k8s-target-pool
   ]
 }
