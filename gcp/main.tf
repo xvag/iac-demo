@@ -102,10 +102,10 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
 resource "google_compute_route" "k8s-route" {
   count       = var.worker-no
 
-  name        = "k8s-route-10-200-${count.index}-0-24"
+  name        = "k8s-route-pods-worker-${count.index}"
   dest_range  = var.pod-cidr[count.index]
   network     = "k8s-vpc"
-  next_hop_ip = "10.240.0.2${count.index}"
+  next_hop_ip = var.worker-ip[count.index]
   depends_on = [
     google_compute_subnetwork.k8s-subnet
   ]
