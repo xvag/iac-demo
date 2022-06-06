@@ -1,1 +1,62 @@
 ---
+- name: Retrieve PUBLIC IP
+  shell: |
+    gcloud compute addresses describe k8s-ip \
+      --region $(gcloud config get-value compute/region) \
+      --format 'value(address)'
+  register: public_ip
+
+- name: Print PUBLIC IP
+  debug:
+    msg: "{{ public_ip.stdout }}"
+
+- name: Create tmp directory
+  file:
+    path: /tmp/k8s/
+    state: directory
+
+- name: Generate Certificate Authority
+  include: cert-auth.yml
+
+- name: Generate The Admin Client Certificate
+  include: admin-cert.yml
+
+- name: Generate The Kubelet Client Certificates
+  include: worker-cert.yml
+  tags:
+    - work
+
+- name: Generate The Controller Manager Client Certificate
+  include: controller-cert.yml
+
+- name: Generate The Kube Proxy Client Certificate
+  include: proxy-cert.yml
+
+- name: Generate The Scheduler Client Certificate
+  include: scheduler-cert.yml
+
+- name: Generate The Kubernetes API Server Certificate
+  include: api-cert.yml
+
+- name: Generate The Service Account Key Pair
+  include: sa-cert.yml
+
+- name: Generate The kubelet Kubernetes Configuration File
+  include: worker-conf.yml
+
+- name: Generate The kube-proxy Kubernetes Configuration File
+  include: proxy-conf.yml
+
+- name: Generate The kube-controller-manager Kubernetes Configuration File
+  include: controller-conf.yml
+
+- name: Generate The kube-scheduler Kubernetes Configuration File
+  include: scheduler-conf.yml
+
+- name: Generate The admin Kubernetes Configuration File
+  include: admin-conf.yml
+
+- name: Generate The Encryption Config File
+  include: encryption-conf.yml
+  tags:
+    - enc
