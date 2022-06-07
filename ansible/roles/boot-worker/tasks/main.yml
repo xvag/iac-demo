@@ -10,15 +10,9 @@
 
 - name: Configure the Kubelet
   import_tasks: kubelet.yml
-  tags:
-   - runit
 
 - name: Configure the Kubernetes Proxy
   import_tasks: proxy.yml
-  tags:
-    - runit
 
 - name: Start and Enable the Services
   import_tasks: start-services.yml
-  tags:
-    - runit
