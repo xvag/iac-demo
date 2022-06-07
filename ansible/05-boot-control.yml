@@ -1,0 +1,6 @@
+- name: Bootstrapping the Kubernetes Control Plane
+  hosts: controllers
+  remote_user: kube
+
+  roles:
+    - boot-control
