@@ -10,7 +10,7 @@
       -ca=ca.pem \
       -ca-key=ca-key.pem \
       -config=ca-config.json \
-      -hostname={{ api_ips }},{{ public_ip.stdout }},{{ k8s_hostnames }} \
+      -hostname=127.0.0.1,{{ service_cluster_ip_range }},{{ controller_ips }},{{ public_ip.stdout }},{{ k8s_hostnames }} \
       -profile=kubernetes \
       kubernetes-csr.json | cfssljson -bare kubernetes
   args:

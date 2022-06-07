@@ -23,8 +23,6 @@
 
 - name: Generate The Kubelet Client Certificates
   include: worker-cert.yml
-  tags:
-    - work
 
 - name: Generate The Controller Manager Client Certificate
   include: controller-cert.yml
@@ -58,5 +56,3 @@
 
 - name: Generate The Encryption Config File
   include: encryption-conf.yml
-  tags:
-    - enc

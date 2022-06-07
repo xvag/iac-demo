@@ -1,5 +1,13 @@
-- hosts: nodes
+- name: Update and prepare the nodes
+  hosts: nodes
   become: yes
+
+  vars:
+    basic_packages:
+      - vim
+      - bash-completion
+      - wget
+      - curl
 
   tasks:
     - name: Update system packages
@@ -7,16 +15,22 @@
        name: "*"
        state: latest
 
-    - name: create the kube user account
+    - name: Install some basic packages
+      package:
+       name: "{{ item }}"
+      loop:
+       - "{{ basic_packages }}"
+
+    - name: Create the kube user account
       user: name=kube append=yes state=present createhome=yes shell=/bin/bash
 
-    - name: allow 'kube' to use sudo without needing a password
+    - name: Allow 'kube' to use sudo without needing a password
       lineinfile:
         dest: /etc/sudoers
         line: 'kube ALL=(ALL) NOPASSWD: ALL'
         validate: 'visudo -cf %s'
 
-    - name: set up authorized keys for the kube user
+    - name: Set up authorized keys for the kube user
       authorized_key: user=kube key="{{item}}"
       with_file:
         - ~/.ssh/id_rsa.pub
