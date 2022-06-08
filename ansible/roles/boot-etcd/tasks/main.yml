@@ -1,9 +1,9 @@
 ---
 - name: Download and Install the etcd binaries
-  include: install-etcd.yml
+  import_tasks: install-etcd.yml
 
 - name: Create directories and move certs
-  include: setup-dir.yml
+  import_tasks: setup-dir.yml
 
 - name: Create the etcd service
-  include: etcd-service.yml
+  import_tasks: etcd-service.yml
