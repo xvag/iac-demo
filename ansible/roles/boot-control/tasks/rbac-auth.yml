@@ -10,7 +10,6 @@
     kubectl apply --kubeconfig admin.kubeconfig -f kube-apiserver-to-kubelet-role.yaml
   run_once: true
 
-
 - name: Create ClusterRoleBinding
   template:
    src: kube-apiserver-to-kubelet-bind.yaml.j2
