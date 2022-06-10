@@ -1,0 +1,11 @@
+basic_packages:
+  - vim
+  - bash-completion
+  - wget
+  - curl
+
+k8s_hostnames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster,kubernetes.svc.cluster.local"
+
+service_cluster_ip_range: "10.32.0.1"
+
+controller_ips: "10.240.0.10,10.240.0.11"

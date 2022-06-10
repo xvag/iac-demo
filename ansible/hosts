@@ -1,4 +1,4 @@
-[nodes]
+[cluster]
 controller-0
 controller-1
 worker-0

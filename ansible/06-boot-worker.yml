@@ -1,6 +1,0 @@
-- name: Bootstrapping the Kubernetes Worker Nodes
-  hosts: workers
-  remote_user: kube
-
-  roles:
-    - boot-worker

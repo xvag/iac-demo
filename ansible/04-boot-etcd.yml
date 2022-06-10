@@ -1,6 +1,0 @@
-- name: Bootstrapping the etcd Cluster
-  hosts: controllers
-  remote_user: kube
-
-  roles:
-    - boot-etcd
