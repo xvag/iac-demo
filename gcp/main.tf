@@ -43,7 +43,7 @@ resource "google_compute_firewall" "k8s-fw-ex" {
   network  = "k8s-vpc"
   allow {
     protocol = "tcp"
-    ports    = ["80","443","22","6443","30944"]
+    ports    = ["22","6443","30944"]
   }
   allow {
     protocol = "icmp"
