@@ -35,6 +35,8 @@
   remote_user: kube
   tags:
     - r04
+  vars_files:
+    - vars.yml
   roles:
     - 04-boot-etcd
 
@@ -43,6 +45,8 @@
   remote_user: kube
   tags:
     - r05
+  vars_files:
+    - vars.yml
   roles:
     - 05-boot-control
 
@@ -51,6 +55,8 @@
   remote_user: kube
   tags:
     - r06
+  vars_files:
+    - vars.yml
   roles:
     - 06-boot-worker
 
