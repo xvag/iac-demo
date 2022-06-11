@@ -46,6 +46,9 @@ resource "google_compute_firewall" "k8s-fw-ex" {
     # ports    = ["22","6443","30944","32100"]
   }
   allow {
+    protocol = "udp"
+  }
+  allow {
     protocol = "icmp"
   }
   source_ranges = ["0.0.0.0/0"]
