@@ -44,14 +44,6 @@ variable "size" {
   type = string
 }
 
-variable "region" {
-  type = string
-}
-
-variable "zone" {
-  type = string
-}
-
 variable "controller-no" {
   type = number
 }
