@@ -43,7 +43,7 @@ resource "google_compute_firewall" "k8s-fw-ex" {
   network  = "k8s-vpc"
   allow {
     protocol = "tcp"
-    ports    = ["22","6443","32000"]
+    ports    = ["22","6443","32000","30403"]
   }
   allow {
     protocol = "udp"
