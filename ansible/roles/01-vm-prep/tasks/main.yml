@@ -1,24 +1,8 @@
-- name: Update system packages
-  package:
-   name: "*"
-   state: latest
+- name: Update system and Install basic packages
+  import_tasks: update-install.yml
 
-- name: Install some basic packages
-  package:
-   name: "{{ item }}"
-  loop:
-   - "{{ basic_packages }}"
+- name: Create a user (kube)
+  import_tasks: kube-user.yml
 
-- name: Create the kube user account
-  user: name=kube append=yes state=present createhome=yes shell=/bin/bash
-
-- name: Allow 'kube' to use sudo without needing a password
-  lineinfile:
-    dest: /etc/sudoers
-    line: 'kube ALL=(ALL) NOPASSWD: ALL'
-    validate: 'visudo -cf %s'
-
-- name: Set up authorized keys for the kube user
-  authorized_key: user=kube key="{{item}}"
-  with_file:
-    - ~/.ssh/id_rsa.pub
+- name: Load and enalbe necessary kernel modules
+  import_tasks: kernel-modules.yml
