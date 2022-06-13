@@ -25,7 +25,7 @@ controller-ip   = ["10.240.0.10"]    # Internal IP
 
 worker-no      = 2                                 # Number of Workers
 worker-name    = ["worker-0","worker-1"]           # Names
-worker-ip      = ["10.240.0.20","10.240.0.21"]     # Internal IP
+worker-ip      = ["10.240.0.20","10.240.0.21","10.240.0.10"]     # Internal IP
 pod-cidr       = ["10.200.0.0/24","10.200.1.0/24","10.200.2.0/24"] # Pod Subnet
 
 pod-cidr-range = "10.200.0.0/16"                   # Pod Subnet range
