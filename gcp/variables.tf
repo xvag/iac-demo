@@ -20,51 +20,35 @@ variable "ssh_key" {
   sensitive = true
 }
 
-variable "c-region" {
+variable "region" {
   type = string
 }
 
-variable "c-zone" {
+variable "zone" {
   type = string
 }
 
-variable "c-subnet" {
+variable "subnet" {
   type = string
 }
 
-variable "c-machine" {
+variable "machine" {
   type = string
 }
 
-variable "c-image" {
+variable "image" {
   type = string
 }
 
-variable "c-size" {
+variable "size" {
   type = string
 }
 
-variable "w-region" {
+variable "region" {
   type = string
 }
 
-variable "w-zone" {
-  type = string
-}
-
-variable "w-subnet" {
-  type = string
-}
-
-variable "w-machine" {
-  type = string
-}
-
-variable "w-image" {
-  type = string
-}
-
-variable "w-size" {
+variable "zone" {
   type = string
 }
 

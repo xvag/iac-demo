@@ -5,36 +5,24 @@
 
 resource "google_compute_address" "k8s-ip" {
   name   = "k8s-ip"
-  region = var.c-region
+  region = var.region
 }
 
-resource "google_compute_network" "k8s-c-vpc" {
-  name = "k8s-c-vpc"
+resource "google_compute_network" "k8s-vpc" {
+  name = "k8s-vpc"
   auto_create_subnetworks = "false"
 }
 
-resource "google_compute_network" "k8s-w-vpc" {
-  name = "k8s-w-vpc"
-  auto_create_subnetworks = "false"
+resource "google_compute_subnetwork" "k8s-subnet" {
+  name          = "k8s-subnet"
+  region        = var.region
+  ip_cidr_range = var.subnet
+  network       = google_compute_network.k8s-vpc.id
 }
 
-resource "google_compute_subnetwork" "k8s-c-subnet" {
-  name          = "k8s-c-subnet"
-  region        = var.c-region
-  ip_cidr_range = var.c-subnet
-  network       = google_compute_network.k8s-c-vpc.id
-}
-
-resource "google_compute_subnetwork" "k8s-w-subnet" {
-  name          = "k8s-w-subnet"
-  region        = var.w-region
-  ip_cidr_range = var.w-subnet
-  network       = google_compute_network.k8s-w-vpc.id
-}
-
-resource "google_compute_firewall" "k8s-fw-c-in" {
-  name     = "k8s-fw-c-in"
-  network  = "k8s-c-vpc"
+resource "google_compute_firewall" "k8s-fw-in" {
+  name     = "k8s-fw-in"
+  network  = "k8s-vpc"
   allow {
     protocol = "tcp"
   }
@@ -44,15 +32,15 @@ resource "google_compute_firewall" "k8s-fw-c-in" {
   allow {
     protocol = "icmp"
   }
-  source_ranges = ["${var.c-subnet}","${var.pod-cidr-range}"]
+  source_ranges = ["${var.subnet}","${var.pod-cidr-range}"]
   depends_on = [
-    google_compute_subnetwork.k8s-c-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
 
-resource "google_compute_firewall" "k8s-fw-c-ex" {
-  name     = "k8s-fw-c-ex"
-  network  = "k8s-c-vpc"
+resource "google_compute_firewall" "k8s-fw-ex" {
+  name     = "k8s-fw-ex"
+  network  = "k8s-vpc"
   allow {
     protocol = "tcp"
     ports    = ["22","6443","32000","32073","30659","30000","30001"]
@@ -65,69 +53,20 @@ resource "google_compute_firewall" "k8s-fw-c-ex" {
   }
   source_ranges = ["0.0.0.0/0"]
   depends_on = [
-    google_compute_subnetwork.k8s-c-subnet
-  ]
-}
-
-resource "google_compute_firewall" "k8s-fw-w-in" {
-  name     = "k8s-fw-w-in"
-  network  = "k8s-w-vpc"
-  allow {
-    protocol = "tcp"
-  }
-  allow {
-    protocol = "udp"
-  }
-  allow {
-    protocol = "icmp"
-  }
-  source_ranges = ["${var.w-subnet}","${var.pod-cidr-range}"]
-  depends_on = [
-    google_compute_subnetwork.k8s-w-subnet
-  ]
-}
-
-resource "google_compute_firewall" "k8s-fw-w-ex" {
-  name     = "k8s-fw-w-ex"
-  network  = "k8s-w-vpc"
-  allow {
-    protocol = "tcp"
-    ports    = ["22","6443","32000","32073","30659","30000","30001"]
-  }
-  allow {
-    protocol = "udp"
-  }
-  allow {
-    protocol = "icmp"
-  }
-  source_ranges = ["0.0.0.0/0"]
-  depends_on = [
-    google_compute_subnetwork.k8s-w-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
 
 resource "google_compute_firewall" "k8s-fw-allow-health-check" {
   name    = "k8s-fw-allow-health-check"
-  network = "k8s-c-vpc"
+  network = "k8s-vpc"
   allow {
     protocol = "tcp"
   }
   source_ranges  = ["209.85.152.0/22", "209.85.204.0/22", "35.191.0.0/16"]
   depends_on = [
-    google_compute_subnetwork.k8s-c-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
-}
-
-resource "google_compute_network_peering" "c-w" {
-  name         = "c-w"
-  network      = google_compute_network.k8s-c-vpc.self_link
-  peer_network = google_compute_network.k8s-w-vpc.self_link
-}
-
-resource "google_compute_network_peering" "w-c" {
-  name         = "w-c"
-  network      = google_compute_network.k8s-w-vpc.self_link
-  peer_network = google_compute_network.k8s-c-vpc.self_link
 }
 
 ###
@@ -143,8 +82,8 @@ resource "google_compute_http_health_check" "k8s-health-check" {
 resource "google_compute_target_pool" "k8s-target-pool" {
   name = "k8s-target-pool"
   instances = [
-    "${var.c-zone}/${var.controller-name[0]}"
-    #"${var.c-zone}/${var.controller-name[1]}",
+    "${var.zone}/${var.controller-name[0]}",
+    "${var.zone}/${var.controller-name[1]}",
   ]
   health_checks = [
     google_compute_http_health_check.k8s-health-check.name,
@@ -155,7 +94,7 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
   name       = "k8s-forwarding-rule"
   ip_address = google_compute_address.k8s-ip.address
   port_range = "6443-6443"
-  region     = var.c-region
+  region     = var.region
   target     = google_compute_target_pool.k8s-target-pool.id
   depends_on = [
     google_compute_address.k8s-ip,
@@ -163,25 +102,15 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
   ]
 }
 
-resource "google_compute_route" "k8s-w-route" {
+resource "google_compute_route" "k8s-pods-route" {
   count       = var.worker-no
 
   name        = "k8s-route-pods-worker-${count.index}"
   dest_range  = var.pod-cidr[count.index]
-  network     = "k8s-w-vpc"
+  network     = "k8s-vpc"
   next_hop_ip = var.worker-ip[count.index]
   depends_on = [
-    google_compute_subnetwork.k8s-w-subnet
-  ]
-}
-
-resource "google_compute_route" "k8s-c-route" {
-  name        = "k8s-route-pods-worker-2"
-  dest_range  = var.pod-cidr[2]
-  network     = "k8s-c-vpc"
-  next_hop_ip = var.worker-ip[2]
-  depends_on = [
-    google_compute_subnetwork.k8s-c-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
 
@@ -193,19 +122,19 @@ resource "google_compute_instance" "controller" {
   count = var.controller-no
 
   name                      = var.controller-name[count.index]
-  machine_type              = var.c-machine
-  zone                      = var.c-zone
+  machine_type              = var.machine
+  zone                      = var.zone
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["k8s", "controller"]
   boot_disk {
     initialize_params {
-      image = var.c-image
-      size  = var.c-size
+      image = var.image
+      size  = var.size
     }
   }
   network_interface {
-    subnetwork = google_compute_subnetwork.k8s-c-subnet.self_link
+    subnetwork = google_compute_subnetwork.k8s-subnet.self_link
     network_ip = var.controller-ip[count.index]
     access_config {
     }
@@ -215,10 +144,9 @@ resource "google_compute_instance" "controller" {
   }
   metadata = {
     ssh-keys = "${var.ssh_user}:${var.ssh_key}"
-    pod-cidr = var.pod-cidr[2]
   }
   depends_on = [
-    google_compute_subnetwork.k8s-c-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
 
@@ -226,19 +154,19 @@ resource "google_compute_instance" "worker" {
   count = var.worker-no
 
   name                      = var.worker-name[count.index]
-  machine_type              = var.w-machine
-  zone                      = var.w-zone
+  machine_type              = var.machine
+  zone                      = var.zone
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["k8s", "worker"]
   boot_disk {
     initialize_params {
-      image = var.w-image
-      size  = var.w-size
+      image = var.image
+      size  = var.size
     }
   }
   network_interface {
-    subnetwork = google_compute_subnetwork.k8s-w-subnet.self_link
+    subnetwork = google_compute_subnetwork.k8s-subnet.self_link
     network_ip = var.worker-ip[count.index]
     access_config {
     }
@@ -251,6 +179,6 @@ resource "google_compute_instance" "worker" {
     pod-cidr = var.pod-cidr[count.index]
   }
   depends_on = [
-    google_compute_subnetwork.k8s-w-subnet
+    google_compute_subnetwork.k8s-subnet
   ]
 }
