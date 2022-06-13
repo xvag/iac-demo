@@ -7,7 +7,7 @@ zone    = "europe-west4-a"
 subnet  = "10.240.0.0/24"
 machine = "e2-standard-2"
 image   = "ubuntu-os-cloud/ubuntu-2004-lts"
-size    = "20"
+size    = "200"
 
 ###
 ### Controller variables
