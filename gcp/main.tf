@@ -9,12 +9,12 @@ resource "google_compute_address" "k8s-ip" {
 }
 
 resource "google_compute_network" "k8s-c-vpc" {
-  name = "k8s-vpc"
+  name = "k8s-c-vpc"
   auto_create_subnetworks = "false"
 }
 
 resource "google_compute_network" "k8s-w-vpc" {
-  name = "k8s-vpc"
+  name = "k8s-w-vpc"
   auto_create_subnetworks = "false"
 }
 
