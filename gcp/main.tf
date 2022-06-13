@@ -5,7 +5,7 @@
 
 resource "google_compute_address" "k8s-ip" {
   name   = "k8s-ip"
-  region = var.region
+  region = var.c-region
 }
 
 resource "google_compute_network" "k8s-c-vpc" {
