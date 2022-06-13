@@ -163,7 +163,7 @@ resource "google_compute_forwarding_rule" "k8s-forwarding-rule" {
   ]
 }
 
-resource "google_compute_route" "k8s-route" {
+resource "google_compute_route" "k8s-w-route" {
   count       = var.worker-no
 
   name        = "k8s-route-pods-worker-${count.index}"
@@ -175,7 +175,7 @@ resource "google_compute_route" "k8s-route" {
   ]
 }
 
-resource "google_compute_route" "k8s-route" {
+resource "google_compute_route" "k8s-c-route" {
   name        = "k8s-route-pods-worker-2"
   dest_range  = var.pod-cidr[2]
   network     = "k8s-c-vpc"
