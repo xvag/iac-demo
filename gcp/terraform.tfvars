@@ -2,12 +2,19 @@
 ### Common variables
 ###
 
-region  = "europe-west4"
-zone    = "europe-west4-a"
-subnet  = "10.240.0.0/24"
-machine = "custom-4-8192"
-image   = "ubuntu-os-cloud/ubuntu-2004-lts"
-size    = "20"
+c-region  = "europe-west4"
+c-zone    = "europe-west4-a"
+c-subnet  = "10.240.0.0/24"
+c-machine = "custom-4-8192"
+c-image   = "ubuntu-os-cloud/ubuntu-2004-lts"
+c-size    = "20"
+
+w-region  = "europe-north1"
+w-zone    = "europe-north1-c"
+w-subnet  = "10.250.0.0/24"
+w-machine = "custom-4-8192"
+w-image   = "ubuntu-os-cloud/ubuntu-2004-lts"
+w-size    = "20"
 
 ###
 ### Controller variables
