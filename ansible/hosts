@@ -11,3 +11,6 @@ controller-1
 [workers]
 worker-0
 worker-1
+
+[monitoring]
+nagios
