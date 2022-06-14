@@ -1,0 +1,15 @@
+basic_packages:
+  - httpd
+  - php
+  - gcc
+  - glibc
+  - glibc-common
+  - wget
+  - perl
+  - gd
+  - gd-devel
+  - unzip
+  - zip
+  - make
+  - python3
+  - python3-pip

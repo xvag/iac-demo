@@ -1,0 +1,10 @@
+- name: Setup Nagios Core Server
+  hosts: nagios
+  become: yes
+  tags:
+    - nagios
+  vars_prompt:
+    - name: nagios_admin_password
+      prompt: Enter password for nagios admin
+  roles:
+    - nagios-server
