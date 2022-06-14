@@ -16,7 +16,7 @@ resource "google_compute_network" "nagios-vpc" {
 resource "google_compute_subnetwork" "nagios-subnet" {
   name          = "nagios-subnet"
   region        = us-central1
-  ip_cidr_range = 192.168.10.0/24
+  ip_cidr_range = "192.168.10.0/24"
   network       = google_compute_network.nagios-vpc.id
 }
 
@@ -226,7 +226,7 @@ resource "google_compute_instance" "nagios" {
   }
   network_interface {
     subnetwork = google_compute_subnetwork.nagios-subnet.self_link
-    network_ip = 192.168.10.100
+    network_ip = "192.168.10.100"
     access_config {
     }
   }
