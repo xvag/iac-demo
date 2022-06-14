@@ -15,7 +15,7 @@ resource "google_compute_network" "nagios-vpc" {
 
 resource "google_compute_subnetwork" "nagios-subnet" {
   name          = "nagios-subnet"
-  region        = us-central1
+  region        = "us-central1"
   ip_cidr_range = "192.168.10.0/24"
   network       = google_compute_network.nagios-vpc.id
 }
@@ -212,16 +212,16 @@ resource "google_compute_instance" "worker" {
 }
 
 resource "google_compute_instance" "nagios" {
-  name                      = nagios
-  machine_type              = e2-standard-2
-  zone                      = us-central1-c
+  name                      = "nagios"
+  machine_type              = "e2-standard-2"
+  zone                      = "us-central1-c"
   allow_stopping_for_update = true
   can_ip_forward            = true
   tags                      = ["nagios"]
   boot_disk {
     initialize_params {
-      image = centos-cloud/centos-7
-      size  = 50
+      image = "centos-cloud/centos-7"
+      size  = "50"
     }
   }
   network_interface {
