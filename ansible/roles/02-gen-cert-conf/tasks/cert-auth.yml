@@ -1,4 +1,3 @@
----
 - name: Generate ca-config.json file
   template:
     src: ca-config.json.j2

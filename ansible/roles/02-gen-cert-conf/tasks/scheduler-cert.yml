@@ -1,4 +1,3 @@
----
 - name: Generate kube-scheduler-csr.json file
   template:
     src: kube-scheduler-csr.json.j2

@@ -1,4 +1,4 @@
----
+
 - name: Download and Install the etcd binaries
   import_tasks: install-etcd.yml
 

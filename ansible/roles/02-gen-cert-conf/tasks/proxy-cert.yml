@@ -1,4 +1,3 @@
----
 - name: Generate kube-proxy-csr.json file
   template:
     src: kube-proxy-csr.json.j2

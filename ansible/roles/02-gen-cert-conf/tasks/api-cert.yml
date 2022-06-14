@@ -1,4 +1,3 @@
----
 - name: Generate kubernetes-csr.json file
   template:
     src: kubernetes-csr.json.j2

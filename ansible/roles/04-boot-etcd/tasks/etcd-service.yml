@@ -1,4 +1,4 @@
----
+
 - name: Get INTERNAL IP
   shell: |
     curl -s -H "Metadata-Flavor: Google" \

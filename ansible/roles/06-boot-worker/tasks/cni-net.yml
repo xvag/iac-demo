@@ -1,4 +1,4 @@
----
+
 - name: Retrieve the Pod CIDR range for the current compute instance
   shell: |
    curl -s -H "Metadata-Flavor: Google" \

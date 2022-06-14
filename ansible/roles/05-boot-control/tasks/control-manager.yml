@@ -1,4 +1,4 @@
----
+
 - name: Move the kube-controller-manager kubeconfig to /var/lib/kubernetes/
   become: yes
   shell: |

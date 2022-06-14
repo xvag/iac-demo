@@ -1,4 +1,3 @@
----
 - name: Generate kube-controller-manager-csr.json file
   template:
     src: kube-controller-manager-csr.json.j2

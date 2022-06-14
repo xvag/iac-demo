@@ -1,4 +1,4 @@
----
+
 - name: Create ClusterRole
   template:
    src: kube-apiserver-to-kubelet-role.yaml.j2

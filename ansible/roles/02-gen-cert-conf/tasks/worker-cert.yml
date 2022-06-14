@@ -1,4 +1,3 @@
----
 - name: Generate worker-csr.json file
   template:
     src: worker-csr.json.j2

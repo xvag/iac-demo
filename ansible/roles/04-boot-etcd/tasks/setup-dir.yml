@@ -1,4 +1,4 @@
----
+
 - name: Create /var/lib/etcd directory
   become: yes
   file:

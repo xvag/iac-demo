@@ -1,4 +1,3 @@
----
 - name: Generate admin-csr.json file
   template:
     src: admin-csr.json.j2

@@ -1,4 +1,3 @@
----
 - name: Generate the encryption key
   shell: |
     head -c 32 /dev/urandom | base64

@@ -1,4 +1,4 @@
----
+
 - name: Move the kube-scheduler kubeconfig to /var/lib/kubernetes/
   become: yes
   shell: |

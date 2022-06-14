@@ -1,4 +1,4 @@
----
+
 - name: Move config file to /var/lib/kube-proxy/
   become: yes
   shell: |

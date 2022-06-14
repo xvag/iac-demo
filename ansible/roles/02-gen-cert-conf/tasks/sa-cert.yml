@@ -1,4 +1,3 @@
----
 - name: Generate service-account-csr.json file
   template:
     src: service-account-csr.json.j2

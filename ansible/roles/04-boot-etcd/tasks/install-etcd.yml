@@ -1,4 +1,4 @@
----
+
 - name: Download and Extract the official etcd release binaries from the etcd GitHub project
   shell: |
    wget -q --show-progress --https-only --timestamping \
