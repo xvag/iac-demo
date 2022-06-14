@@ -8,6 +8,34 @@ resource "google_compute_address" "k8s-ip" {
   region = var.region
 }
 
+resource "google_compute_network" "nagios-vpc" {
+  name = "nagios-vpc"
+  auto_create_subnetworks = "false"
+}
+
+resource "google_compute_subnetwork" "nagios-subnet" {
+  name          = "nagios-subnet"
+  region        = us-central1
+  ip_cidr_range = 192.168.10.0/24
+  network       = google_compute_network.nagios-vpc.id
+}
+
+resource "google_compute_firewall" "nagios-fw" {
+  name     = "nagios-fw"
+  network  = "nagios-vpc"
+  allow {
+    protocol = "tcp"
+    ports    = ["22","443","80"]
+  }
+  allow {
+    protocol = "icmp"
+  }
+  source_ranges = ["0.0.0.0/0"]
+  depends_on = [
+    google_compute_subnetwork.nagios-subnet
+  ]
+}
+
 resource "google_compute_network" "k8s-vpc" {
   name = "k8s-vpc"
   auto_create_subnetworks = "false"
@@ -180,5 +208,35 @@ resource "google_compute_instance" "worker" {
   }
   depends_on = [
     google_compute_subnetwork.k8s-subnet
+  ]
+}
+
+resource "google_compute_instance" "nagios" {
+  name                      = nagios
+  machine_type              = e2-standard-2
+  zone                      = us-central1-c
+  allow_stopping_for_update = true
+  can_ip_forward            = true
+  tags                      = ["nagios"]
+  boot_disk {
+    initialize_params {
+      image = centos-cloud/centos-7
+      size  = 50
+    }
+  }
+  network_interface {
+    subnetwork = google_compute_subnetwork.nagios-subnet.self_link
+    network_ip = 192.168.10.100
+    access_config {
+    }
+  }
+  service_account{
+    scopes = ["compute-rw","storage-ro","service-management","service-control","logging-write","monitoring"]
+  }
+  metadata = {
+    ssh-keys = "${var.ssh_user}:${var.ssh_key}"
+  }
+  depends_on = [
+    google_compute_subnetwork.nagios-subnet
   ]
 }
