@@ -1,0 +1,34 @@
+- name: Update cache
+  apt:
+   update_cache: yes
+
+- name: Upgrade packages
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install required basic packages
+  package:
+    name: "{{ item }}"
+  loop:
+  - nagios-nrpe-server
+  - nagios-plugins
+
+- name: Get EXTERNAL IP of Nagios Server
+  become: false
+  shell: |
+    gcloud compute instances describe nagios --zone=us-central1-c \
+      --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
+  register: nagios_server_ip
+  delegate_to: localhost
+
+- name: Setup NRPE client configuration
+  template:
+    src: nrpe.cfg.j2
+    dest: /etc/nagios/nrpe.cfg
+
+- name: Restart and Enable nagios-nrpe-server
+  service:
+    name: nagios-nrpe-server
+    state: restarted
+    enabled: yes

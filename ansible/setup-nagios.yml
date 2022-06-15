@@ -1,0 +1,15 @@
+- name: Setup Nagios Core Server
+  hosts: nagios
+  become: yes
+  tags:
+    - server
+  roles:
+    - nagios-server
+
+- name: Setup Nagios Remote Clients
+  hosts: cluster
+  become: yes
+  tags:
+    - clients
+  roles:
+    - nagios-clients
