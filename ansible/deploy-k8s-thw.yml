@@ -66,3 +66,11 @@
     - r07
   roles:
     - 07-remote
+
+- name: Post-Deploy actions and configurations
+  hosts: cluster
+  become: yes
+  tags:
+    - r08
+  roles:
+    - 08-post-deploy

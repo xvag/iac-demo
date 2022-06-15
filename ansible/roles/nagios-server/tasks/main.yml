@@ -1,4 +1,4 @@
-- name: Enter admin password
+- name: Create admin password
   pause:
     prompt: "Enter password for nagiosadmin user"
     echo: no
