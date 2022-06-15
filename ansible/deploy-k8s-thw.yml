@@ -9,7 +9,7 @@
   tags:
     - r01
   vars_files:
-    - vars.yml
+    - deploy-k8s-thw-vars.yml
   roles:
     - 01-vm-prep
 
@@ -18,7 +18,7 @@
   tags:
     - r02
   vars_files:
-    - vars.yml
+    - deploy-k8s-thw-vars.yml
   roles:
     - 02-gen-cert-conf
 
@@ -36,7 +36,7 @@
   tags:
     - r04
   vars_files:
-    - vars.yml
+    - deploy-k8s-thw-vars.yml
   roles:
     - 04-boot-etcd
 
@@ -46,7 +46,7 @@
   tags:
     - r05
   vars_files:
-    - vars.yml
+    - deploy-k8s-thw-vars.yml
   roles:
     - 05-boot-control
 
@@ -56,7 +56,7 @@
   tags:
     - r06
   vars_files:
-    - vars.yml
+    - deploy-k8s-thw-vars.yml
   roles:
     - 06-boot-worker
 
