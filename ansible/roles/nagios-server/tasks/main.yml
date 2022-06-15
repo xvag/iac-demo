@@ -1,107 +1,23 @@
-- name: Add basic packages variables
-  include_vars: "basic_packages.yml"
+- name: Enter admin password
+  pause:
+    prompt: "Enter password for nagiosadmin user"
+    echo: no
+  register: nagios_admin_password
 
-- name: Update system packages
-  package:
-    name: "*"
-    state: latest
+- name: Update System and Install required packages
+  import_tasks: update-install.yml
 
-- name: Install required basic packages
-  package:
-    name: "{{ item }}"
-  loop:
-  - "{{ basic_packages }}"
+- name: Setup users and groups
+  import_tasks: user-group.yml
 
-- name: Put SELinux in permissive mode
-  selinux:
-    policy: targeted
-    state: "permissive"
+- name: Download, Compile and Install Nagios
+  import_tasks: install-nagios.yml
 
-- name: Create nagcmd group
-  group:
-    name: nagcmd
-    state: present
+- name: Download, Compile and Install Nagios Plugins
+  import_tasks: install-plugins.yml
 
-- name: Create user nagios and append to nagcmd group
-  user:
-    name: nagios
-    shell: /bin/bash
-    groups: nagcmd
-    append: yes
+- name: Setup SELinux and firewall
+  import_tasks: allow-firewall.yml
 
-- name: Append nagcmd group to user apache
-  user:
-    name: apache
-    groups: nagcmd
-    append: yes
-
-- name: Download Nagios
-  shell: |
-    wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
-    tar -zxvf nagios-4.4.3.tar.gz
-  args:
-    chdir: /tmp
-
-- name: Compile and Install Nagios
-  shell: |
-    ./configure --with-nagios-group=nagios --with-command-group=nagcmd
-    make all
-    make install
-    make install-init
-    make install-config
-    make install-commandmode
-  args:
-    chdir: /tmp/nagios-4.4.3
-
-- name: Install the Nagios web configuration
-  shell: |
-    make install-webconf
-  args:
-    chdir: /tmp/nagios-4.4.3
-
-- name: Install a Nagios exfoliation theme
-  shell: |
-    make install-exfoliation
-  args:
-    chdir: /tmp/nagios-4.4.3
-
-- name: Create a user account for logging into the Nagios web interface
-  shell: |
-    htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin {{ nagios_admin_password }}
-
-- name: Restart and Enable Apache
-  service:
-    name: httpd
-    state: restarted
-    enabled: yes
-
-- name: Download Nagios Plugins
-  shell: |
-    wget https://nagios-plugins.org/download/nagios-plugins-2.2.1.tar.gz
-    tar -zxvf nagios-plugins-2.2.1.tar.gz
-  args:
-    chdir: /tmp
-
-- name: Compile and Install Nagios Plugins
-  shell: |
-    ./configure --with-nagios-user=nagios --with-nagios-group=nagios
-    make
-    make install
-  args:
-    chdir: /tmp/nagios-plugins-2.2.1/
-
-- name: Verify Nagios configuration files
-  shell: |
-    /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
-
-- name: Restart and Enable Apache
-  service:
-    name: nagios
-    state: started
-    enabled: yes
-
-- name: Open http on firewall
-  ansible.posix.firewalld:
-    service: http
-    permanent: yes
-    state: enabled
+- name: Setup Remote Clients
+  import_tasks: setup-clients.yml

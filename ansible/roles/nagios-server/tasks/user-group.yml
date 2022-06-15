@@ -1,0 +1,17 @@
+- name: Create nagcmd group
+  group:
+    name: nagcmd
+    state: present
+
+- name: Create user nagios and append to nagcmd group
+  user:
+    name: nagios
+    shell: /bin/bash
+    groups: nagcmd
+    append: yes
+
+- name: Append nagcmd group to user apache
+  user:
+    name: apache
+    groups: nagcmd
+    append: yes

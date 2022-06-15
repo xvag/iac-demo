@@ -1,0 +1,39 @@
+- name: Download Nagios
+  shell: |
+    wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.3.tar.gz
+    tar -zxvf nagios-4.4.3.tar.gz
+  args:
+    chdir: /tmp
+
+- name: Compile and Install Nagios
+  shell: |
+    ./configure --with-nagios-group=nagios --with-command-group=nagcmd
+    make all
+    make install
+    make install-init
+    make install-config
+    make install-commandmode
+  args:
+    chdir: /tmp/nagios-4.4.3
+
+- name: Install the Nagios web configuration
+  shell: |
+    make install-webconf
+  args:
+    chdir: /tmp/nagios-4.4.3
+
+- name: Install a Nagios exfoliation theme
+  shell: |
+    make install-exfoliation
+  args:
+    chdir: /tmp/nagios-4.4.3
+
+- name: Create a user account for logging into the Nagios web interface
+  shell: |
+    htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin {{ nagios_admin_password.user_input }}
+
+- name: Restart and Enable Apache
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes

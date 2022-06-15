@@ -1,0 +1,13 @@
+- name: Add basic packages variables
+  include_vars: "basic_packages.yml"
+
+- name: Update system packages
+  package:
+    name: "*"
+    state: latest
+
+- name: Install required basic packages
+  package:
+    name: "{{ item }}"
+  loop:
+  - "{{ basic_packages }}"

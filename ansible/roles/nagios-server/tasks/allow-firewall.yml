@@ -1,0 +1,10 @@
+- name: Put SELinux in permissive mode
+  selinux:
+    policy: targeted
+    state: "permissive"
+
+- name: Open http on firewall
+  ansible.posix.firewalld:
+    service: http
+    permanent: yes
+    state: enabled

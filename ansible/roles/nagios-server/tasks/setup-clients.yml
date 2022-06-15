@@ -1,0 +1,46 @@
+- name: Create configurations directory
+  file:
+    path: /usr/local/nagios/etc/servers
+    state: directory
+
+- name: Set Nagios Configuration file
+  template:
+    src: nagios.cfg.j2
+    dest: /usr/local/nagios/etc/nagios.cfg
+
+- name: Add command definitions
+  template:
+    src: commands.cfg.j2
+    dest: /usr/local/nagios/etc/objects/commands.cfg
+
+- name: Get EXTERNAL IPs of the Clients
+  become: false
+  shell: |
+    gcloud compute instances describe {{ item }} \
+      --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
+  with_items:
+    "{{ groups['cluster'] }}"
+  register: external_ip
+  delegate_to: localhost
+
+- name: Add hostgroups configuration
+  template:
+    src: hostgroups.cfg.j2
+    dest: /usr/local/nagios/etc/objects/hostgroups.cfg
+
+- name: Add Clients configurations
+  template:
+    src: client.cfg.j2
+    dest: /usr/local/nagios/etc/servers/client.{{ item.1 }}.cfg
+  with_indexed_items:
+    "{{ groups['cluster'] }}"
+
+- name: Verify Nagios configuration files
+  shell: |
+    /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+- name: Restart and Enable Nagios
+  service:
+    name: nagios
+    state: restarted
+    enabled: yes
