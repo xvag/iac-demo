@@ -79,3 +79,7 @@ variable "pod-cidr" {
 variable "pod-cidr-range" {
   type = string
 }
+
+variable "service_cluster_ip_range" {
+  type = string
+}

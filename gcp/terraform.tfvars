@@ -35,3 +35,4 @@ worker-ip      = ["10.240.0.20","10.240.0.21"]     # Internal IP
 pod-cidr       = ["10.200.0.0/24","10.200.1.0/24"] # Pod Subnet
 
 pod-cidr-range = "10.200.0.0/16"                   # Pod Subnet range
+service_cluster_ip_range = "10.32.0.0/24"
