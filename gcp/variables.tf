@@ -44,6 +44,10 @@ variable "size" {
   type = string
 }
 
+variable "cluster-ports" {
+  type = list(string)
+}
+
 variable "controller-no" {
   type = number
 }
