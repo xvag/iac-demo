@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Get login token with:
+# kubectl -n kubernetes-dashboard create token admin-user
 
 apiVersion: v1
 kind: Namespace
@@ -37,9 +40,11 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
+  type: NodePort
   ports:
     - port: 443
       targetPort: 8443
+      nodePort: 32010
   selector:
     k8s-app: kubernetes-dashboard
 
