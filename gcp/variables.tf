@@ -80,6 +80,6 @@ variable "pod-cidr-range" {
   type = string
 }
 
-variable "service_cluster_ip_range" {
+variable "service-cluster-ip-range" {
   type = string
 }
