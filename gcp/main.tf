@@ -60,7 +60,7 @@ resource "google_compute_firewall" "k8s-fw-in" {
   allow {
     protocol = "icmp"
   }
-  source_ranges = ["${var.subnet}","${var.pod-cidr-range}","{service_cluster_ip_range}"]
+  source_ranges = ["${var.subnet}","${var.pod-cidr-range}","{var.service_cluster_ip_range}"]
   depends_on = [
     google_compute_subnetwork.k8s-subnet
   ]
