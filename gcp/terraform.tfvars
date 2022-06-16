@@ -11,11 +11,11 @@ size    = "200"
 
 ###
 ### Firewall ports for the subnet of the cluster
-### [ssh,k8s_api,nagios_client,kubeopsview,prometheus,alert_manager,grafana,
+### [ssh,k8s_api,nagios_client,kubeopsview,dashboard,prometheus,alert_manager,grafana,
 ###  argocd,jenkins,instavote-vote,instavote-result]
 ###
 
-cluster-ports   = ["22","6443","5666","32000","32001","32002","32003","31000","31001","30000","30001"]
+cluster-ports   = ["22","6443","5666","32000","32010","32001","32002","32003","31000","31001","30000","30001"]
 
 ###
 ### Controller variables
