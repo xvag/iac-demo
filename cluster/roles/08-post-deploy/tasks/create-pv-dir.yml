@@ -1,0 +1,23 @@
+- name: Create directory for Prometheus PV
+  file:
+    path: /opt/prometheus
+    state: directory
+    owner: kube
+    group: kube
+    mode: 0777
+
+- name: Create directory for Grafana PV
+  file:
+    path: /opt/grafana
+    state: directory
+    owner: kube
+    group: kube
+    mode: 0777
+
+- name: Create directory for Jenkins PV
+  file:
+    path: /opt/jenkins
+    state: directory
+    owner: kube
+    group: kube
+    mode: 0777
