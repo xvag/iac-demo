@@ -1,0 +1,13 @@
+- name: Deploy Jenkins
+  hosts: localhost
+  tags:
+    - jenkins
+  roles:
+    - jenkins
+
+- name: Deploy ArgoCD
+  hosts: localhost
+  tags:
+    - argocd
+  roles:
+    - argocd

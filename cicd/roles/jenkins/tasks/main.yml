@@ -1,0 +1,28 @@
+- name: Create Jenkins namespace
+  kubernetes.core.k8s:
+    state: present
+    src: namespace.yaml
+
+- name: Apply Service Acccount
+  kubernetes.core.k8s:
+    state: present
+    src: serviceAccount.yaml
+
+- name: Apply Volume
+  kubernetes.core.k8s:
+    state: present
+    src: volume.yaml
+
+- name: Apply Jenkins deployment
+  kubernetes.core.k8s:
+    state: present
+    src: deployment.yaml
+
+- name: Apply Jenkins service
+  kubernetes.core.k8s:
+    state: present
+    src: service.yaml
+
+- name: Retrieve admin password with
+  debug:
+    msg: kubectl -n jenkins exec -it [jenkins-pod-id] -- cat /var/jenkins_home/secrets/initialAdminPassword
