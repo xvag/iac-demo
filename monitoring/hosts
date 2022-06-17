@@ -4,13 +4,5 @@ controller-1
 worker-0
 worker-1
 
-[controllers]
-controller-0
-controller-1
-
-[workers]
-worker-0
-worker-1
-
 [monitoring]
 nagios

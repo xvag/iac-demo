@@ -1,0 +1,29 @@
+- name: Create monitoring namespace
+  kubernetes.core.k8s:
+    state: present
+    src: namespace.yaml
+
+- name: Deploy Prometheus
+  import_tasks: prometheus.yml
+  tags:
+    - prom
+
+- name: Deploy Kube-State-Metrics
+  import_tasks: kube-state-metrics.yml
+  tags:
+    - ksm
+
+- name: Deploy Alert-Manager
+  import_tasks: alert-manager.yml
+  tags:
+    - alert
+
+- name: Deploy Node-Exporter
+  import_tasks: node-exporter.yml
+  tags:
+    - nodex
+
+- name: Deploy Grafana
+  import_tasks: grafana.yml
+  tags:
+    - graf

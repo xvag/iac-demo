@@ -1,0 +1,24 @@
+- name: Apply Prometheus ClusterRole
+  kubernetes.core.k8s:
+    state: present
+    src: prometheus/clusterRole.yaml
+
+- name: Apply Prometheus ConfigMap
+  kubernetes.core.k8s:
+    state: present
+    src: prometheus/config-map.yaml
+
+- name: Apply Prometheus Volume
+  kubernetes.core.k8s:
+    state: present
+    src: prometheus/volume.yaml
+
+- name: Apply Prometheus deployment
+  kubernetes.core.k8s:
+    state: present
+    src: prometheus/deployment.yaml
+
+- name: Apply Prometheus service
+  kubernetes.core.k8s:
+    state: present
+    src: prometheus/service.yaml

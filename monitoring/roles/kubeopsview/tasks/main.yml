@@ -1,0 +1,29 @@
+- name: Create kubeopsview namespace
+  kubernetes.core.k8s:
+    state: present
+    src: namespace.yaml
+
+- name: Apply kubeopsview RBAC
+  kubernetes.core.k8s:
+    state: present
+    src: rbac.yaml
+
+- name: Apply kubeopsview redis deployment
+  kubernetes.core.k8s:
+    state: present
+    src: redis-deployment.yaml
+
+- name: Apply kubeopsview redis service
+  kubernetes.core.k8s:
+    state: present
+    src: redis-service.yaml
+
+- name: Apply kubeopsview deployment
+  kubernetes.core.k8s:
+    state: present
+    src: deployment.yaml
+
+- name: Apply kubeopsview service
+  kubernetes.core.k8s:
+    state: present
+    src: service.yaml

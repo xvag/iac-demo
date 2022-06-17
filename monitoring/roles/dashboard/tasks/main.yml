@@ -1,0 +1,23 @@
+- name: Create kubernetes-dashboard namespace
+  kubernetes.core.k8s:
+    state: present
+    src: namespace.yaml
+
+- name: Apply dashboard admin user
+  kubernetes.core.k8s:
+    state: present
+    src: dash-adminuser.yaml
+
+- name: Apply dashboard admin user bind
+  kubernetes.core.k8s:
+    state: present
+    src: dash-adminbind.yaml
+
+- name: Apply dashboard deployment
+  kubernetes.core.k8s:
+    state: present
+    src: dashboard-2.5.1.yaml
+
+- name: Get Login Token With
+  debug:
+    msg: kubectl -n kubernetes-dashboard create token admin-user

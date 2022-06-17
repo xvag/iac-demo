@@ -1,0 +1,24 @@
+- name: Apply KSM ClusterRole
+  kubernetes.core.k8s:
+    state: present
+    src: kube-state-metrics/cluster-role.yaml
+
+- name: Apply KSM ClusterRole Binding
+  kubernetes.core.k8s:
+    state: present
+    src: kube-state-metrics/cluster-role-binding.yaml
+
+- name: Apply KSM ServiceAccount
+  kubernetes.core.k8s:
+    state: present
+    src: kube-state-metrics/service-account.yaml
+
+- name: Apply KSM deployment
+  kubernetes.core.k8s:
+    state: present
+    src: kube-state-metrics/deployment.yaml
+
+- name: Apply KSM service
+  kubernetes.core.k8s:
+    state: present
+    src: kube-state-metrics/service.yaml

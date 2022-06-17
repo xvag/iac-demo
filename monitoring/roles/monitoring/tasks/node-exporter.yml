@@ -1,0 +1,9 @@
+- name: Apply Node-Exporter Daemonset deployment
+  kubernetes.core.k8s:
+    state: present
+    src: node-exporter/daemonset.yaml
+
+- name: Apply Node-Exporter service
+  kubernetes.core.k8s:
+    state: present
+    src: node-exporter/service.yaml

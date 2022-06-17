@@ -1,0 +1,19 @@
+- name: Apply Grafana Data Source ConfigMap
+  kubernetes.core.k8s:
+    state: present
+    src: grafana/grafana-datasource-config.yaml
+
+- name: Apply Grafana Volume
+  kubernetes.core.k8s:
+    state: present
+    src: grafana/volume.yaml
+
+- name: Apply Grafana deployment
+  kubernetes.core.k8s:
+    state: present
+    src: grafana/deployment.yaml
+
+- name: Apply Grafana service
+  kubernetes.core.k8s:
+    state: present
+    src: grafana/service.yaml

@@ -1,0 +1,19 @@
+- name: Apply Alert-Manager Config ConfigMap
+  kubernetes.core.k8s:
+    state: present
+    src: alert-manager/alertmanager-cm.yaml
+
+- name: Apply Alert-Manager Template ConfigMap
+  kubernetes.core.k8s:
+    state: present
+    src: alert-manager/alerttemplate-cm.yaml
+
+- name: Apply Alert-Manager deployment
+  kubernetes.core.k8s:
+    state: present
+    src: alert-manager/deployment.yaml
+
+- name: Apply Alert-Manager service
+  kubernetes.core.k8s:
+    state: present
+    src: alert-manager/service.yaml

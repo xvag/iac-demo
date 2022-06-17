@@ -1,0 +1,38 @@
+- name: Setup Nagios Core Server
+  hosts: nagios
+  become: yes
+  tags:
+    - nagios
+    - nagios-server
+  roles:
+    - nagios-server
+
+- name: Setup Nagios Remote Clients
+  hosts: cluster
+  become: yes
+  tags:
+    - nagios
+    - nagios-clients
+  roles:
+    - nagios-clients
+
+- name: Deploy kube-ops-view
+  hosts: localhost
+  tags:
+    - kubeopsview
+  roles:
+    - kubeopsview
+
+- name: Deploy kubernetes Dashboard
+  hosts: localhost
+  tags:
+    - dashboard
+  roles:
+    - dashboard
+
+- name: Deploy monitoring with Prometheus/Grafana
+  hosts: localhost
+  tags:
+    - monitoring
+  roles:
+    - monitoring
