@@ -14,15 +14,6 @@
     kubectl patch svc argocd-server -n argocd --patch \
     '{"spec": { "type": "NodePort", "ports": [ { "nodePort": 31000, "port": 443, "protocol": "TCP", "targetPort": 8080 } ] } }'
 
-- name: Get initial password
-  shell: |
-    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-  register: argo_init_pass
-  tags:
-    - do
-
-- name: ArgoCD initial admin password
+- name: Get ArgoCD initial password with
   debug:
-    msg: "{{ argo_init_pass.stdout }}"
-  tags:
-    - do
+    msg: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
