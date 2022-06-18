@@ -10,7 +10,7 @@ image   = "ubuntu-os-cloud/ubuntu-2004-lts"
 size    = "200"
 
 ###
-### Firewall ports for the subnet of the cluster
+### Firewall ports (external) for the subnet of the cluster
 ### [ssh,k8s_api,nagios_client,kubeopsview,dashboard,prometheus,alert_manager,grafana,
 ###  argocd,jenkins,instavote-vote,instavote-result]
 ###
