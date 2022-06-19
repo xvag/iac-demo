@@ -44,7 +44,7 @@ variable "size" {
   type = string
 }
 
-variable "cluster-ports" {
+variable "fw-ex-ports" {
   type = list(string)
 }
 

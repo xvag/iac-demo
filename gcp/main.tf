@@ -71,7 +71,7 @@ resource "google_compute_firewall" "k8s-fw-ex" {
   network  = "k8s-vpc"
   allow {
     protocol = "tcp"
-    #ports    = var.cluster-ports
+    ports    = var.fw-ex-ports
   }
   allow {
     protocol = "udp"
