@@ -6,12 +6,18 @@
     src: coredns-1.8.3.yaml
   delegate_to: localhost
   run_once: true
-  
+  tags:
+    - dns
+
 # Install Docker for "docker run" in containers used by Jenkins
 - name: Install Docker Engine
   import_tasks: install-docker.yml
+  tags:
+    - docker
 
 # Create directories for Persistent Volumes used by Jenkins, Prometheus, Grafana
 - name: Create directories for PVs
   import_tasks: create-pv-dir.yml
   when: inventory_hostname in groups['workers']
+  tags:
+    - pvdir
