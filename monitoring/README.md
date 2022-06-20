@@ -2,10 +2,24 @@
 
 Creates monitoring setup for the ([GCP](https://github.com/xvag/iac-demo/tree/main/gcp) / [Cluster](https://github.com/xvag/iac-demo/tree/main/cluster)) infrastructure.
 
-Run the deployment with:
+(Can use the Ansible tags to deploy only specific setups)
+
+Run the full deployment with:
 ```
 $ ansible-playbook deploy-monitoring
 ```
+
+or deploy specific setups with tags:
+```
+$ ansible-playbook deploy-monitoring -t <TAG>
+```
+where <TAG> can be:
+- nagios
+- nagios-server
+- nagios-clients
+- kubeopsview
+- dashboard
+- monitoring
 
 to create:
 
@@ -35,7 +49,6 @@ with kube-state-metrics, alert-manager and node-exporter.
 - Access Alert-Manager on [WORKER_EXTERNAL_IP]:32002
 - Access Grafana on [WORKER_EXTERNAL_IP]:32003
 - Login to Grafana with admin/admin
-
 
 ### Requirements:
 For Nagios Setup:
