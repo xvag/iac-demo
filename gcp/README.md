@@ -1,8 +1,8 @@
 # Deploy Infrastructure on GCP with Terraform
 
-Creates 5 Vms on GCP: 4 for a Kubernetes Cluster and 1 for Nagios Server.
+Creates 5 VMs on GCP: 4 for a Kubernetes Cluster and 1 for Nagios Server.
 
-It is based on [Kubernetes the Hard Way as Code - GCP Infra](https://github.com/xvag/k8s-iac-thw/tree/main/gcp) plus the extra VM for Nagios, which has hardcoded variable in the main.tf manifest.
+It is based on [Kubernetes the Hard Way as Code - GCP Infra](https://github.com/xvag/k8s-iac-thw/tree/main/gcp), plus the extra VM for Nagios, which has hardcoded variables in the main.tf manifest.
 
 ### Deploy from Terraform Cloud
 
