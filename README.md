@@ -1,17 +1,26 @@
 # Complete Infrastructure as Code Demo
 
-Deploy Infrastructure as-Code with Terraform and Ansible.
+Deploy Infrastructure as-Code with Terraform and Ansible.  
 (GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
 
 ### The Big Picture:  
-After applying all the present manifests you will have:
-- Five VMs on GCP (2 controllers, 2 workers, 1 for Nagios Server)
+Applying successfully all the present manifests will create:
+- Five VMs on GCP (2 controllers, 2 workers, 1 for Nagios Server).
 - A Kubernetes Cluster with HA, on 2 controllers and 2 workers.
-- Monitoring with Nagios, Prometheus/Grafana, Kubernetes Dashboard and KubeOpsView.
-- Continuous Integration setup with Jenkins
-- Continuous Deployment setup with ArgoCD
+- Monitoring setup with Nagios, Prometheus/Grafana, Kubernetes Dashboard and KubeOpsView.
+- Continuous Integration setup with Jenkins.
+- Continuous Deployment setup with ArgoCD.
 
-(Follow the links below for the instructions of the next steps)
+Specific parts of the Infra, instead of all, can by deployed using the Ansible flags in the manifests.
+
+##### Requirements:
+- Ansible
+- Terraform Cloud
+- gcloud CLI
+- cfssl
+- kubectl
+
+Follow the links below for further instructions of the next steps.
 
 ## Steps:
 
