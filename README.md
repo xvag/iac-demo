@@ -15,7 +15,7 @@ After applying all the present manifests you will have:
 
 ## Steps:
 
-01. Deploy Infrastructure on GCP, with Terraform through Terraform Cloud.(https://github.com/xvag/instavote-infra/tree/main/gcp)
-02. Deploy the Kubernetes Cluster with Ansible.(https://github.com/xvag/instavote-infra/tree/main/cluster)
-03. Deploy Monitoring Infra with Ansible.(https://github.com/xvag/instavote-infra/tree/main/monitoring)
-04. Deploy CI/CD Infra.(https://github.com/xvag/instavote-infra/tree/main/cicd)
+01. [Deploy Infrastructure on GCP, with Terraform through Terraform Cloud.](https://github.com/xvag/instavote-infra/tree/main/gcp)
+02. [Deploy the Kubernetes Cluster with Ansible.](https://github.com/xvag/instavote-infra/tree/main/cluster)
+03. [Deploy Monitoring Infra with Ansible.](https://github.com/xvag/instavote-infra/tree/main/monitoring)
+04. [Deploy CI/CD Infra.](https://github.com/xvag/instavote-infra/tree/main/cicd)
