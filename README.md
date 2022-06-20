@@ -1,4 +1,4 @@
-# Complete Infrastructure as Code - Demo
+# Infrastructure as Code - Demo
 
 Deploy Infrastructure-as-Code with Terraform and Ansible.  
 (GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
