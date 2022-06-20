@@ -2,8 +2,6 @@
 
 Creates monitoring setup for the ([GCP](https://github.com/xvag/iac-demo/tree/main/gcp) / [Cluster](https://github.com/xvag/iac-demo/tree/main/cluster)) infrastructure.
 
-(Can use the Ansible tags to deploy only specific setups)
-
 Run the full deployment with:
 ```
 $ ansible-playbook deploy-monitoring
