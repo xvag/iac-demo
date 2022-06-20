@@ -1,6 +1,6 @@
 # Complete Infrastructure as Code Demo
 
-Deploy Infrastructure as-Code with Terraform and Ansible.  
+Deploy Infrastructure-as-Code with Terraform and Ansible.  
 (GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
 
 ### The Big Picture:  
@@ -13,9 +13,9 @@ Applying successfully all the present manifests will create:
 
 Specific parts of the Infra, instead of all, can by deployed using the Ansible flags in the manifests.
 
-##### Requirements:
+#### Requirements:
+The following should be installed in the host from which the manifests will run.
 - Ansible
-- Terraform Cloud
 - gcloud CLI
 - cfssl
 - kubectl
