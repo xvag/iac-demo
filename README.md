@@ -1,6 +1,6 @@
-# Deploy Complete Infrastructure for a Demo App (Instavote)
+# Complete Infrastructure as Code Demo
 
-Deploy the Infrastructure for [Instavote App](https://github.com/xvag/instavote-ci), as-Code with Terraform and Ansible.  
+Deploy Infrastructure as-Code with Terraform and Ansible.
 (GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
 
 ### The Big Picture:  
