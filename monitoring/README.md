@@ -11,7 +11,7 @@ or deploy specific setups with tags:
 ```
 $ ansible-playbook deploy-monitoring -t <TAG>
 ```
-where <TAG> can be:
+where `<TAG>` can be:
 - nagios
 - nagios-server
 - nagios-clients
