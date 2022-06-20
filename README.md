@@ -26,5 +26,5 @@ Follow the links below for further instructions of the next steps.
 
 01. [Deploy Infrastructure on GCP with Terraform.](https://github.com/xvag/instavote-infra/tree/main/gcp)
 02. [Deploy the Kubernetes Cluster with Ansible.](https://github.com/xvag/instavote-infra/tree/main/cluster)
-03. [Deploy Monitoring Infra with Ansible.](https://github.com/xvag/instavote-infra/tree/main/monitoring)
-04. [Deploy CI/CD Infra with Ansible.](https://github.com/xvag/instavote-infra/tree/main/cicd)
+03. [Deploy Monitoring Setup with Ansible.](https://github.com/xvag/instavote-infra/tree/main/monitoring)
+04. [Deploy CI/CD Setup with Ansible.](https://github.com/xvag/instavote-infra/tree/main/cicd)
