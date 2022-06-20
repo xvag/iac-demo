@@ -1,15 +1,15 @@
-# Deploy Monitoring Infra with Ansible
+# Deploy Monitoring Setup with Ansible
 
 Creates monitoring setup for the ([GCP](https://github.com/xvag/iac-demo/tree/main/gcp) / [Cluster](https://github.com/xvag/iac-demo/tree/main/cluster)) infrastructure.
 
 Run the full deployment with:
 ```
-$ ansible-playbook deploy-monitoring
+$ ansible-playbook deploy-monitoring.yml
 ```
 
 or deploy specific setups with tags:
 ```
-$ ansible-playbook deploy-monitoring -t <TAG>
+$ ansible-playbook deploy-monitoring.yml -t <TAG>
 ```
 where `<TAG>` can be:
 - nagios
