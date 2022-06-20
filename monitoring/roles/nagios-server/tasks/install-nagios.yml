@@ -30,7 +30,7 @@
 
 - name: Create a user account for logging into the Nagios web interface
   shell: |
-    htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin {{ nagios_admin_password.user_input }}
+    htpasswd -c -b /usr/local/nagios/etc/htpasswd.users nagiosadmin nagiosadmin
 
 - name: Restart and Enable Apache
   service:
