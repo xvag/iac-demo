@@ -4,7 +4,7 @@ Deploy Infrastructure-as-Code with Terraform and Ansible.
 (GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
 
 ### The Big Picture:  
-Applying successfully all the present manifests will create:
+Applying successfully all manifests will create:
 - Five VMs on GCP (2 controllers, 2 workers, 1 for Nagios Server).
 - A Kubernetes Cluster with HA, on 2 controllers and 2 workers.
 - Monitoring setup with Nagios, Prometheus/Grafana, Kubernetes Dashboard and KubeOpsView.
