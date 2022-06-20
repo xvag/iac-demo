@@ -40,7 +40,8 @@ with kube-state-metrics, alert-manager and node-exporter.
 ### Requirements:
 For Nagios Setup:
 - Ansible
-- gcloud CLI
+- gcloud CLI  
+
 For the rest:
 - Ansible with kubernetes module
 - kubectl (configured to the cluster)
