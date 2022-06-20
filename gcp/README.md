@@ -2,14 +2,14 @@
 
 Creates 5 VMs on GCP: 4 for a Kubernetes Cluster and 1 for Nagios Server.
 
-It is based on [Kubernetes the Hard Way as Code - GCP Infra](https://github.com/xvag/k8s-iac-thw/tree/main/gcp), plus the extra VM for Nagios, which has hardcoded variables in the main.tf manifest.
+Based on [Kubernetes the Hard Way as Code - GCP Infra](https://github.com/xvag/k8s-iac-thw/tree/main/gcp)
++ one extra VM for Nagios (hardcoded variables in the main.tf).
 
 ### Deploy from Terraform Cloud
 
 01. Create a new Workspace on Terraform Cloud and connect it with the GitHub repo.  
 Set Terraform Working Directory to the gcp/ folder.  
 Set Run Trigger to "Only trigger runs when files in specified paths change", pointing to gcp/ folder.
-
 
 02. Create the following workspace variables (as sensitive):
 - gcp_project = The GCP Project ID
