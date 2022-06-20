@@ -3,7 +3,8 @@
 ### Deploy from Terraform Cloud
 
 01. Create a new Workspace on Terraform Cloud and connect it with the GitHub repo.  
-Set Terraform Working Directory to the gcp/ folder and set Run Trigger to "Only trigger runs when files in specified paths change", pointing to gcp/ folder.
+Set Terraform Working Directory to the gcp/ folder.  
+Set Run Trigger to "Only trigger runs when files in specified paths change", pointing to gcp/ folder.
 
 
 02. Create the following workspace variables (as sensitive):
