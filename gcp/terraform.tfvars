@@ -36,8 +36,8 @@ vpc = {
     machine = "e2-standard-2"
     image   = "centos-cloud/centos-7"
     size    = "200"
-    subnet  = "10.260.0.0/24"
-    ip      = ["10.260.0.10"]
+    subnet  = "10.200.0.0/24"
+    ip      = ["10.200.0.10"]
     fw      = ["22","443","80"]
   }
 }
