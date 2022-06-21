@@ -16,4 +16,5 @@ Set Run Trigger to "Only trigger runs when files in specified paths change", poi
 - grc_creds   = The Service Account Key for the GCP Project ([More info](https://stackoverflow.com/questions/68290090/set-up-google-cloud-platform-gcp-authentication-for-terraform-cloud))
 - ssh_user = username for ssh user
 - ssh_key  = .pub key of the ssh user  
+
 (Note: the ssh_user/key is for connecting to the created VMs with SSH)
