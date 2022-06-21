@@ -14,11 +14,11 @@ Applying successfully all manifests will create:
 Specific parts of the Infra, instead of all, can by deployed using the Ansible flags in the manifests.
 
 #### Requirements:
-The following should be installed in the host from which the manifests will run.
-- Ansible
-- gcloud CLI
-- cfssl
-- kubectl
+The following should be installed and configured in the host from which the manifests will run.
+- Ansible (with kubernetes module)
+- gcloud CLI (connected to the GCP project)
+- cfssl (for creating kubernets licenses/keys)
+- kubectl (will be auto-configured to use the created cluster, after the successful deployment of [cluster](https://github.com/xvag/instavote-infra/tree/main/cluster))
 
 Follow the links below for further instructions of the next steps.
 
