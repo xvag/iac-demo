@@ -11,73 +11,42 @@ variable "gcp_creds" {
 }
 
 variable "ssh_user" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "SSH username for connecting to VMs"
 }
 
 variable "ssh_key" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "SSH .pub key for connecting to VMs"
 }
 
-variable "region" {
-  type = string
+variable "vpc" {
+  type      = map(object({
+    no      = number
+    name    = string
+    region  = string
+    zone    = string
+    machine = string
+    image   = string
+    size    = string
+    subnet  = string
+    ip      = list(string)
+    fw      = list(string)
+  }))
 }
 
-variable "zone" {
-  type = string
-}
-
-variable "subnet" {
-  type = string
-}
-
-variable "machine" {
-  type = string
-}
-
-variable "image" {
-  type = string
-}
-
-variable "size" {
-  type = string
-}
-
-variable "fw-ex-ports" {
-  type = list(string)
-}
-
-variable "controller-no" {
-  type = number
-}
-
-variable "controller-name" {
-  type = list(string)
-}
-
-variable "controller-ip" {
-  type = list(string)
-}
-
-variable "worker-no" {
-  type = number
-}
-
-variable "worker-name" {
-  type = list(string)
-}
-
-variable "worker-ip" {
-  type = list(string)
-}
-
-variable "pod-cidr" {
+variable "target-pool" {
   type = list(string)
 }
 
 variable "pod-cidr-range" {
   type = string
+}
+
+variable "pod-cidr" {
+  type = list(string)
 }
 
 variable "service-cluster-ip-range" {
