@@ -22,3 +22,12 @@ etcd_servers: "https://10.240.0.10:2379,https://10.240.0.11:2379"
 service_cluster_ip_range: "10.32.0.0/24"
 cluster_dns: "10.32.0.10"
 cluster_cidr: "10.200.0.0/16"
+
+# Define CoreDNS replicas (min=2, suggested=number-of-workers)
+coredns_replicas: "2"
+
+# for gcloud compute addresses describe
+controller_region: "europe-west4"
+
+# for gcloud compute instances describe
+worker_zone: "us-central1-c"
