@@ -117,15 +117,3 @@ module "k8s-pods-route" {
   peer_cw     = module.c-peer.peer_name   # Depends on
   peer_wc     = module.w-peer.peer_name   #
 }
-
-module "k8s-pods-route-2" {
-  count       = length(var.vm.worker.ip)
-  source      = "./modules/route"
-  route_name  = "k8s-route-pods-worker-2-${count.index}"
-  route_dest  = var.pod_cidr[count.index]
-  route_hopip = var.vm.worker.ip[count.index]
-  vpc_name    = module.c-vpc.vpc_name
-  subnet_name = module.c-vpc.subnet_name  #
-  peer_cw     = module.c-peer.peer_name   # Depends on
-  peer_wc     = module.w-peer.peer_name   #
-}
