@@ -3,7 +3,7 @@
 Creates 5 VMs on GCP: 4 for a Kubernetes Cluster and 1 for Nagios Server.
 
 Based on [Kubernetes the Hard Way as Code - GCP Infra](https://github.com/xvag/k8s-iac-thw/tree/main/gcp):
-- with 2 Controlles and 2 Workers, instead of 3 and 3.
+- with 2 Controllers and 2 Workers, instead of 3 and 3.
 - plus one extra VM for Nagios (hardcoded variables in the main.tf).
 
 ### Deploy from Terraform Cloud
