@@ -2,7 +2,7 @@ define host {
   use                     linux-server
   host_name               client.{{ item.1 }}
   alias                   client.{{ item.1 }}
-  address                 {{ external_ip.results[item.0].stdout }}
+  address                 {{ controller_external_ip.results[item.0].stdout }}
   hostgroups              k8s-cluster
 }
 

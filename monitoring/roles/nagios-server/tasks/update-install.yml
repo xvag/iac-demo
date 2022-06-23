@@ -1,6 +1,3 @@
-- name: Add basic packages variables
-  include_vars: "basic_packages.yml"
-
 - name: Update system packages
   package:
     name: "*"

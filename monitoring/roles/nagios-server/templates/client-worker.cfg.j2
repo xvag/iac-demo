@@ -1,0 +1,42 @@
+define host {
+  use                     linux-server
+  host_name               client.{{ item.1 }}
+  alias                   client.{{ item.1 }}
+  address                 {{ worker_external_ip.results[item.0].stdout }}
+  hostgroups              k8s-cluster
+}
+
+define service {
+  use                     local-service
+  host_name               client.{{ item.1 }}
+  service_description     SWAP Uasge
+  check_command           check_nrpe!check_swap
+}
+
+define service {
+  use                     local-service
+  host_name               client.{{ item.1 }}
+  service_description     Root / Partition
+  check_command           check_nrpe!check_root
+}
+
+define service {
+  use                     local-service
+  host_name               client.{{ item.1 }}
+  service_description     Current Users
+  check_command           check_nrpe!check_users
+}
+
+define service {
+  use                     local-service
+  host_name               client.{{ item.1 }}
+  service_description     Total Processes
+  check_command           check_nrpe!check_total_procs
+}
+
+define service {
+  use                     local-service
+  host_name               client.{{ item.1 }}
+  service_description     Current Load
+  check_command           check_nrpe!check_load
+}

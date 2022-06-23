@@ -13,27 +13,44 @@
     src: commands.cfg.j2
     dest: /usr/local/nagios/etc/objects/commands.cfg
 
-- name: Get EXTERNAL IPs of the Clients
-  become: false
-  shell: |
-    gcloud compute instances describe {{ item }} \
-      --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
-  with_items:
-    "{{ groups['cluster'] }}"
-  register: external_ip
-  delegate_to: localhost
-
 - name: Add hostgroups configuration
   template:
     src: hostgroups.cfg.j2
     dest: /usr/local/nagios/etc/objects/hostgroups.cfg
 
-- name: Add Clients configurations
+- name: Get EXTERNAL IPs of the Controllers
+  become: false
+  shell: |
+    gcloud compute instances describe {{ item }} --zone={{ controller_zone }} \
+      --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
+  with_items:
+    "{{ groups['controllers'] }}"
+  register: controller_external_ip
+  delegate_to: localhost
+
+- name: Get EXTERNAL IPs of the Workers
+  become: false
+  shell: |
+    gcloud compute instances describe {{ item }} --zone={{ worker_zone }} \
+      --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
+  with_items:
+    "{{ groups['workers'] }}"
+  register: worker_external_ip
+  delegate_to: localhost
+
+- name: Add Controllers configurations as Nagios Clients
   template:
-    src: client.cfg.j2
+    src: client-controller.cfg.j2
     dest: /usr/local/nagios/etc/servers/client.{{ item.1 }}.cfg
   with_indexed_items:
-    "{{ groups['cluster'] }}"
+    "{{ groups['controllers'] }}"
+
+- name: Add Workers configurations as Nagios Clients
+  template:
+    src: client-worker.cfg.j2
+    dest: /usr/local/nagios/etc/servers/client.{{ item.1 }}.cfg
+  with_indexed_items:
+    "{{ groups['workers'] }}"
 
 - name: Verify Nagios configuration files
   shell: |

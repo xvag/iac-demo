@@ -2,10 +2,18 @@
   apt:
    update_cache: yes
 
+#- name: Update cache (insecurely because of Docker repo issue)
+#  shell: |
+#    apt-get update --allow-insecure-repositories
+
 - name: Upgrade packages
   apt:
     name: "*"
     state: latest
+
+#- name: Upgrade system (insecurely because of Docker repo issue)
+#  shell: |
+#    apt-get upgrade -y --allow-unauthenticated
 
 - name: Install required basic packages
   package:
@@ -17,7 +25,7 @@
 - name: Get EXTERNAL IP of Nagios Server
   become: false
   shell: |
-    gcloud compute instances describe nagios --zone=us-central1-c \
+    gcloud compute instances describe {{ nagios_name }} --zone={{ nagios_zone }} \
       --format 'value(networkInterfaces[0].accessConfigs[0].natIP)'
   register: nagios_server_ip
   delegate_to: localhost

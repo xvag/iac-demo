@@ -4,6 +4,8 @@
   tags:
     - nagios
     - nagios-server
+  vars_files:
+    - nagios_vars.yml
   roles:
     - nagios-server
 
@@ -13,6 +15,8 @@
   tags:
     - nagios
     - nagios-clients
+  vars_files:
+    - nagios_vars.yml
   roles:
     - nagios-clients
 
