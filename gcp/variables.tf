@@ -1,3 +1,7 @@
+###
+### Variable Declarations
+###
+
 variable "gcp_project" {
   type      = string
   sensitive = true
@@ -23,29 +27,41 @@ variable "ssh_key" {
 }
 
 variable "vpc" {
+  type       = map(object({
+    name     = string
+    region   = string
+    cidr     = string
+  }))
+}
+
+variable "vm" {
   type      = map(object({
-    no      = number
     name    = string
-    region  = string
     zone    = string
     machine = string
     image   = string
     size    = string
-    subnet  = string
     ip      = list(string)
-    fw      = list(string)
+    tags    = list(string)
+    scopes  = list(string)
   }))
 }
 
-variable "target-pool" {
+variable "fw" {
+    type        = map(map(object({
+      ports     = list(string)
+    })))
+}
+
+variable "pod_cidr" {
   type = list(string)
 }
 
-variable "pod-cidr-range" {
+variable "pod_cidr_range" {
   type = string
 }
 
-variable "pod-cidr" {
+variable "target_pool" {
   type = list(string)
 }
 
