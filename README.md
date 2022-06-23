@@ -1,7 +1,7 @@
 # Infrastructure as Code - Demo
 
 Deploy Infrastructure-as-Code with Terraform and Ansible.  
-(GCP Infra, Kubernetes Cluster, CI/CD, Monitoring, SecOps)
+(GCP Infra, Kubernetes Cluster, CI/CD, Monitoring)
 
 ### The Big Picture  
 Applying successfully all manifests will create:
@@ -18,7 +18,7 @@ The following should be installed and configured in the host from which the mani
 - Ansible (with kubernetes module)
 - gcloud CLI (connected to the GCP project)
 - cfssl (for creating kubernets licenses/keys)
-- kubectl (will be auto-configured to use the created cluster, after the successful deployment of [cluster](https://github.com/xvag/instavote-infra/tree/main/cluster))
+- kubectl (will be auto-configured to access the created cluster, after the successful deployment of [cluster](https://github.com/xvag/instavote-infra/tree/main/cluster))
 
 Follow the links below for further instructions of the next steps.
 
