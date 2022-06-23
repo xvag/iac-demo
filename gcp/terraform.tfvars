@@ -16,7 +16,7 @@ vpc = {
   "nagios" = {
     name     = "nagios"
     region   = "asia-east1"
-    cidr     = "10.200.0.0/24"
+    cidr     = "10.100.0.0/24"
   }
 }
 
@@ -99,7 +99,7 @@ vm = {
     machine = "e2-standard-2"
     image   = "centos-cloud/centos-7"
     size    = "200"
-    ip      = ["10.200.0.10"]
+    ip      = ["10.100.0.10"]
     tags    = ["nagios"]
     scopes  = ["compute-rw","storage-ro","service-management","service-control","logging-write","monitoring"]
   }
