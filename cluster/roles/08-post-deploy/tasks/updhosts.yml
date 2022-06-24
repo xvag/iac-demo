@@ -1,8 +1,0 @@
-
-- name: Update /etc/hosts file in Controllers
-  shell: |
-    cat <<EOF | tee -a /etc/hosts
-    10.250.0.20 worker-0
-    10.250.0.21 worker-1
-    EOF
-  when: inventory_hostname in groups['controllers']

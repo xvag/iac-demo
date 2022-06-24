@@ -1,8 +1,8 @@
 - name: Deploy CoreDNS
   import_tasks: coredns.yml
 
-- name: Update /etc/hosts files
-  import_tasks: updhosts.yml
+- name: Generate /etc/hosts files
+  import_tasks: configure_hosts.yml
 
 # Install Docker for "docker run" in containers used by Jenkins
 - name: Install Docker Engine
